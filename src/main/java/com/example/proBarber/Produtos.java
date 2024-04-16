@@ -1,6 +1,7 @@
 package com.example.proBarber;
 
 public class Produtos {
+    
     private int id;
     private String nome;
     private double preco;
