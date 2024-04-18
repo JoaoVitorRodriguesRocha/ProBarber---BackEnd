@@ -14,6 +14,7 @@ import java.util.Map;
 public class Controller {
     List<Produtos> prod = new ArrayList<>();
     List<ItensDeVenda> item = new ArrayList<>();
+    List<Servicos> serv = new ArrayList<>();
     String PostMensagem= "SUCESSO";
 
     //Get e Post do Produto
@@ -42,6 +43,29 @@ public class Controller {
 
         return ResponseEntity.status(200).body(respostaProd);
     }
+
+    @GetMapping("/Servicos")
+    public List<Servicos> servicos(){
+        return serv;
+    }
+
+    @PostMapping("/Servicos")
+    public ResponseEntity<Object> insert(@RequestBody Servicos servicos){
+
+        Servicos serv = new Servicos(
+                servicos.getId(),
+                servicos.getNomeServico(),
+                servicos.getValorServico()
+
+        );
+
+        Map<String,Object> respostaServ = new HashMap<>();
+        respostaServ.put("dados",serv);
+        respostaServ.put("Retorno",PostMensagem);
+
+        return ResponseEntity.status(200).body(respostaServ);
+    }
+
 
     //Get e Post do item
     @GetMapping("/item")
