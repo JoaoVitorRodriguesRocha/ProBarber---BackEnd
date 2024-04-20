@@ -2,16 +2,28 @@ package com.example.proBarber;
 
 public class ItensDeVenda {
 
+    private int id;
     private Double valorRecebido;
     private Servicos[] servico;
     private Produtos[] produto;
     private Geladeira[] alimento;
+
+
     
-    public ItensDeVenda(Double valorRecebido, Servicos[] servico, Produtos[] produto, Geladeira[] alimento) {
+    public ItensDeVenda(int id, Double valorRecebido, Servicos[] servico, Produtos[] produto, Geladeira[] alimento) {
+        this.id=id;
         this.valorRecebido = valorRecebido;
         this.servico = servico;
         this.produto = produto;
         this.alimento = alimento;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Double getValorRecebido() {

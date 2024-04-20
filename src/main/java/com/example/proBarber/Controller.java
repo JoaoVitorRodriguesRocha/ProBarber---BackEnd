@@ -12,20 +12,22 @@ import java.util.Map;
 @RestController
 @RequestMapping("/")
 public class Controller {
-    List<Produtos> prod = new ArrayList<>();
-    List<ItensDeVenda> item = new ArrayList<>();
-    List<Servicos> serv = new ArrayList<>();
+    List<Produtos> prodList = new ArrayList<>();
+    List<ItensDeVenda> itemList = new ArrayList<>();
+    List<Servicos> servList = new ArrayList<>();
+
+    List<Cabecalho> cabList = new ArrayList<>();
     String PostMensagem= "SUCESSO";
 
     //Get e Post do Produto
 
     @GetMapping("/")
     String raiz(){
-        return "a";
+        return "rota raiz";
     }
     @GetMapping("/Prod")
     public List<Produtos> produtos(){
-        return prod;
+        return prodList;
     }
     @PostMapping("/Prod")
     public ResponseEntity<Object> insert(@RequestBody Produtos produtos){
@@ -41,12 +43,15 @@ public class Controller {
         respostaProd.put("dados",prod);
         respostaProd.put("Retorno",PostMensagem);
 
+        prodList.add(prod);
         return ResponseEntity.status(200).body(respostaProd);
     }
 
+
+    //Get e Post de serviços
     @GetMapping("/Servicos")
     public List<Servicos> servicos(){
-        return serv;
+        return servList;
     }
 
     @PostMapping("/Servicos")
@@ -62,7 +67,7 @@ public class Controller {
         Map<String,Object> respostaServ = new HashMap<>();
         respostaServ.put("dados",serv);
         respostaServ.put("Retorno",PostMensagem);
-
+        servList.add(serv);
         return ResponseEntity.status(200).body(respostaServ);
     }
 
@@ -70,26 +75,46 @@ public class Controller {
     //Get e Post do item
     @GetMapping("/item")
     public List<ItensDeVenda> item(){
-        return item;
+        return itemList;
     }
 
     @PostMapping("/item")
     public ResponseEntity<Object> insert(@RequestBody ItensDeVenda item){
         ItensDeVenda itensDeVenda = new ItensDeVenda(
+                item.getId(),
                 item.getValorRecebido(),
                 item.getServico(),
                 item.getProduto(),
                 item.getAlimento()
         );
-
-
         Map<String,Object> respostaItem =new HashMap<>();
         respostaItem.put("dados",itensDeVenda);
         respostaItem.put("Retorno",PostMensagem);
 
-
-
+        itemList.add(itensDeVenda);
         return ResponseEntity.status(200).body(respostaItem);
+    }
+    // Get e Post do Cabeçalho
+    @GetMapping("/cabecalho")
+    public  List<Cabecalho> cabecalho(){return cabList;}
+    @PostMapping("/cabecalho")
+
+    public ResponseEntity<Object> insert(@RequestBody Cabecalho cabecalho){
+        Cabecalho cabecalho1 = new Cabecalho(
+                cabecalho.getId(),
+                cabecalho.getData(),
+                cabecalho.getUsuario(),
+                cabecalho.getValorTotal()
+        );
+
+
+        Map<String,Object> respostaCab =new HashMap<>();
+        respostaCab.put("dados",cabecalho1);
+        respostaCab.put("Retorno",PostMensagem);
+        cabList.add(cabecalho1);
+
+
+        return ResponseEntity.status(200).body(respostaCab);
 
     }
 
