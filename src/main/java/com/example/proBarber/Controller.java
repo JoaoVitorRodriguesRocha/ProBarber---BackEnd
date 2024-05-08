@@ -1,6 +1,5 @@
 package com.example.proBarber;
 
-import jakarta.websocket.server.PathParam;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -82,6 +81,7 @@ public class Controller {
     public ResponseEntity<Object> insert(@RequestBody ItensDeVenda item){
         ItensDeVenda itensDeVenda = new ItensDeVenda(
                 item.getId(),
+                item.getPedidoNumero(),
                 item.getValorRecebido(),
                 item.getServico(),
                 item.getProduto(),
@@ -102,6 +102,7 @@ public class Controller {
     public ResponseEntity<Object> insert(@RequestBody Cabecalho cabecalho){
         Cabecalho cabecalho1 = new Cabecalho(
                 cabecalho.getId(),
+                cabecalho.getPedidoNumero(),
                 cabecalho.getData(),
                 cabecalho.getUsuario(),
                 cabecalho.getValorTotal()
