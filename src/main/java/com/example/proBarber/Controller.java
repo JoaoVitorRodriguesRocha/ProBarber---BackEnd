@@ -119,5 +119,23 @@ public class Controller {
 
     }
 
+    @GetMapping("/dashboard")
+    public ResponseEntity<Object> getDashboardData() {
+        Map<String, Object> dashboardData = new HashMap<>();
+
+        dashboardData.put("totalProdutos", prodList.size());
+        dashboardData.put("totalServicos", servList.size());
+        dashboardData.put("totalItensDeVenda", itemList.size());
+        dashboardData.put("totalCabecalhos", cabList.size());
+
+
+        double valorTotalVendas = cabList.stream().mapToDouble(Cabecalho::getValorTotal).sum();
+        dashboardData.put("valorTotalVendas", valorTotalVendas);
+
+
+
+        return ResponseEntity.ok(dashboardData);
+    }
+
 
 }
