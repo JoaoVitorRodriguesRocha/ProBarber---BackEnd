@@ -27,7 +27,7 @@ public class ItensPedidoVenda {
     @Column(
             name = "Total"
     )
-    private String Total;
+    private int Total;
 	
     @Column(
             name = "Tipo", length = 1
@@ -55,13 +55,13 @@ public class ItensPedidoVenda {
     }
 
     public void setCodigo(String codigo) {
-        this.Codigo = codigo }
+        this.Codigo = codigo; }
 		
     public int getPreco() {
         return Preco;
     }
 
-    public void setPreco(int prec) {
+    public void setPreco(int preco) {
         this.Preco = preco;
     }
 

@@ -64,11 +64,9 @@ public class Estoque{
         this.Nome = nome;
     }
 
-    public String getSaldo() {
-        return Saldo;
-    }
+    public int getSaldo() {return Saldo;}
 
-    public void setEmail(String saldo) {
+    public void setEmail(int saldo) {
         this.Saldo = saldo;
     }
 }
