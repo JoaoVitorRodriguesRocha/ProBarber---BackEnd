@@ -137,5 +137,20 @@ public class Controller {
         return ResponseEntity.ok(dashboardData);
     }
 
+    @GetMapping("/produtosRelatorio")
+    public  ResponseEntity<Object>getProdutoRelatorio(){
+        Map<String,Object> produtoRelatorio = new HashMap<>();
+
+           double valorTotal = prodList.stream().mapToDouble(Produtos::getPreco).sum();
+
+
+        produtoRelatorio.put("totalProdutos", prodList.size());
+        produtoRelatorio.put("Valor total de produtos",valorTotal);
+
+
+        return ResponseEntity.ok(produtoRelatorio);
+
+    }
+
 
 }

@@ -1,7 +1,13 @@
 package com.example.proBarber;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 public class Produtos {
-    
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String nome;
     private double preco;
@@ -13,6 +19,9 @@ public class Produtos {
         this.nome = nome;
         this.preco = preco;
 
+    }
+
+    public Produtos() {
     }
 
     public int getId() {
@@ -38,6 +47,8 @@ public class Produtos {
     public void setPreco(double preco) {
         this.preco = preco;
     }
+
+
 
 
 
