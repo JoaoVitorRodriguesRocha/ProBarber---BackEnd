@@ -70,6 +70,34 @@ public class Controller {
         return ResponseEntity.status(200).body(respostaServ);
     }
 
+    @GetMapping("/relatorioServicos")
+    public ResponseEntity<Object> gerarRelatorioServicos() {
+        Map<String, Object> relatorioServicos = new HashMap<>();
+
+        servList.sort((s1, s2) -> s1.getNomeServico().compareToIgnoreCase(s2.getNomeServico()));
+
+        StringBuilder relatorio = new StringBuilder();
+        double valorTotalServicos = 0;
+
+        relatorio.append("Relatório de Serviços\n");
+        relatorio.append("----------------------\n");
+
+        for (Servicos servico : servList) {
+            relatorio.append("ID: ").append(servico.getId()).append("\n");
+            relatorio.append("Nome do Serviço: ").append(servico.getNomeServico()).append("\n");
+            relatorio.append("Valor do Serviço: R$ ").append(servico.getValorServico()).append("\n");
+            relatorio.append("----------------------\n");
+
+            valorTotalServicos += servico.getValorServico();
+        }
+
+        relatorio.append("Total de Serviços: ").append(servList.size()).append("\n");
+        relatorio.append("Valor Total dos Serviços: R$ ").append(valorTotalServicos).append("\n");
+
+        relatorioServicos.put("relatorio", relatorio.toString());
+        return ResponseEntity.ok(relatorioServicos);
+    }
+
 
     //Get e Post do item
     @GetMapping("/item")
