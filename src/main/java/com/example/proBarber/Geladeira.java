@@ -1,8 +1,7 @@
 package com.example.proBarber;
 
 import com.example.proBarber.dto.GeladeiraDTO;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Table(name = "geladeira")
@@ -11,6 +10,8 @@ import lombok.*;
 @EqualsAndHashCode(of = "id")
 public class Geladeira {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nomeAlimento;
     private double valorAlimento;
