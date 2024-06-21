@@ -1,5 +1,10 @@
 package com.example.proBarber;
 
+import com.example.proBarber.dto.*;
+import com.example.proBarber.repository.CabecalhoRepository;
+import com.example.proBarber.repository.EstoqueRepository;
+import com.example.proBarber.repository.GeladeiraRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +20,16 @@ public class Controller {
     List<ItensDeVenda> itemList = new ArrayList<>();
     List<Servicos> servList = new ArrayList<>();
 
-    List<Cabecalho> cabList = new ArrayList<>();
+
+
+  @Autowired
+    private CabecalhoRepository cabRepository;
+
+  @Autowired
+    private GeladeiraRepository geladeiraRepository;
+
+  @Autowired private EstoqueRepository estoqueRepository;
+
     String PostMensagem= "SUCESSO";
 
     //Get e Post do Produto
@@ -124,32 +138,54 @@ public class Controller {
     }
     // Get e Post do Cabeçalho
     @GetMapping("/cabecalho")
-    public  List<Cabecalho> cabecalho(){return cabList;}
+    public  List<CabecalhoDTO> getAllCab (){
+        List<CabecalhoDTO> cabList =cabRepository.findAll().stream().map(CabecalhoDTO::new).toList();
+        return cabList;}
+
     @PostMapping("/cabecalho")
-
-    public ResponseEntity<Object> insert(@RequestBody Cabecalho cabecalho){
-        Cabecalho cabecalho1 = new Cabecalho(
-                cabecalho.getId(),
-                cabecalho.getPedidoNumero(),
-                cabecalho.getData(),
-                cabecalho.getUsuario(),
-                cabecalho.getValorTotal()
-        );
-
-
-        Map<String,Object> respostaCab =new HashMap<>();
-        respostaCab.put("dados",cabecalho1);
-        respostaCab.put("Retorno",PostMensagem);
-        cabList.add(cabecalho1);
-
-
-        return ResponseEntity.status(200).body(respostaCab);
-
+    public  void saveCabecalho(@RequestBody CabecalhoRequestDTO data){
+        Cabecalho cabData = new Cabecalho();
+        cabRepository.save(cabData);
+        return;
     }
+
+    @GetMapping("/geladeira")
+    public List<GeladeiraDTO>getAllGel(){
+        List<GeladeiraDTO> gelaList = geladeiraRepository.findAll().stream().map(GeladeiraDTO::new).toList();
+        return gelaList;
+    }
+
+    @PostMapping("/geladeira")
+    public  void saveGeladeira(@RequestBody GeladeiraRequestDTO data){
+        Geladeira gelData = new Geladeira();
+        geladeiraRepository.save(gelData);
+        return;
+    }
+
+
+
+
+    @GetMapping("/estoque")
+    public List<EstoqueDTO>getAllEst(){
+        List<EstoqueDTO> estList = estoqueRepository.findAll().stream().map(EstoqueDTO::new).toList();
+        return estList;
+    }
+
+    @PostMapping("/estoque")
+    public  void saveEstoque(@RequestBody EstoqueRequestDTO data){
+        Estoque estData = new Estoque();
+        estoqueRepository.save(estData);
+        return;
+    }
+
+
+
+
 
     @GetMapping("/dashboard")
     public ResponseEntity<Object> getDashboardData() {
         Map<String, Object> dashboardData = new HashMap<>();
+        List<CabecalhoDTO> cabList =cabRepository.findAll().stream().map(CabecalhoDTO::new).toList();
 
         dashboardData.put("totalProdutos", prodList.size());
         dashboardData.put("totalServicos", servList.size());
@@ -157,7 +193,7 @@ public class Controller {
         dashboardData.put("totalCabecalhos", cabList.size());
 
 
-        double valorTotalVendas = cabList.stream().mapToDouble(Cabecalho::getValorTotal).sum();
+        double valorTotalVendas = cabList.stream().mapToDouble(CabecalhoDTO::getValorTotal).sum();
         dashboardData.put("valorTotalVendas", valorTotalVendas);
 
 

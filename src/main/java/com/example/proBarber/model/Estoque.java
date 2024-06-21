@@ -1,4 +1,4 @@
-package proBarber.proBarber.model;
+package com.example.proBarber.model;
 
 import jakarta.persistence.*;
 

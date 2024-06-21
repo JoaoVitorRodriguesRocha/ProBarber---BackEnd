@@ -6,13 +6,13 @@ import java.util.List;
 public class EstoqueCRUD {
     private ArrayList<Estoque> listaEstoque;
 
-    public void criarEstoque(int id ,List<Produtos> produtos,List<Geladeira> geladeiras){
+    public void criarEstoque(Long id ,List<Produtos> produtos,List<Geladeira> geladeiras){
         Estoque estoque = new Estoque(id,produtos, geladeiras);
         listaEstoque.add(estoque);
 
     }
 
-    public Estoque buscarEstoque(int id)
+    public Estoque buscarEstoque(Long id)
     {
 
         for(Estoque estoque : listaEstoque){
@@ -24,7 +24,7 @@ public class EstoqueCRUD {
         return null;
     }
 
-    public void deletaEstoque(int id)
+    public void deletaEstoque(Long id)
     {
        Estoque estoque = buscarEstoque(id);
 
@@ -36,7 +36,7 @@ public class EstoqueCRUD {
         }
     }
 
-    public void atualizaEstoque(int id,List<Produtos> novoprodutoList, List<Geladeira> novageladeiraList)
+    public void atualizaEstoque(Long id,List<Produtos> novoprodutoList, List<Geladeira> novageladeiraList)
     {
         Estoque estoque = buscarEstoque(id);
 
